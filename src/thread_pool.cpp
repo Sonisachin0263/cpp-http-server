@@ -1,4 +1,6 @@
 #include "thread_pool.hpp"
+#include <iostream>
+#include <thread>
 
 ThreadPool::ThreadPool(size_t num_threads) : stop(false) {
     for (size_t i = 0; i < num_threads; ++i)
@@ -24,6 +26,7 @@ void ThreadPool::worker() {
             task = tasks.front();
             tasks.pop();
         }
+        std::cout << "Handled by thread: " << std::this_thread::get_id() << std::endl;
         task();
     }
 }
